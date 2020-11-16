@@ -12,6 +12,7 @@ class FCFS(SchedulerDES):
 
     def dispatcher_func(self, cur_process):
         time_run_for = cur_process.run_for(self.time)
+        cur_process.process_state = ProcessStates.TERMINATED
         return Event(process_id=cur_process.process_id,
                     event_time=self.time + time_run_for,
                     event_type=EventTypes.PROC_CPU_DONE)
