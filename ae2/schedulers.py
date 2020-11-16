@@ -1,5 +1,6 @@
 from des import SchedulerDES
-
+from event import Event, EventTypes
+from process import Process, ProcessStates
 
 class FCFS(SchedulerDES):
     """FCFS(First Come First Serve) is a non-preemptive scheduling algorithm,
@@ -7,12 +8,13 @@ class FCFS(SchedulerDES):
     Processes are scheduled in order of their arrival.
     """
     def scheduler_func(self, cur_event):
-        #TODO
-        pass
+        return sorted(self.processes, key=lambda p : p.process_state!=ProcessStates.TERMINATED * p.arrival_time)[0]
 
     def dispatcher_func(self, cur_process):
-        #TODO
-        pass
+        time_run_for = cur_process.run_for(self.time)
+        return Event(process_id=cur_process.process_id,
+                    event_time=self.time + time_run_for,
+                    event_type=EventTypes.PROC_CPU_DONE)
 
 
 class SJF(SchedulerDES):
