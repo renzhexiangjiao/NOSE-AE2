@@ -8,10 +8,10 @@ class FCFS(SchedulerDES):
     Processes are scheduled in order of their arrival.
     """
     def scheduler_func(self, cur_event):
-        return sorted(self.processes, key=lambda p : p.process_state!=ProcessStates.TERMINATED * p.arrival_time)[0]
+        return sorted(self.processes, key=lambda p : (float)(p.process_state in [ProcessStates.READY, ProcessStates.RUNNING]) * -p.arrival_time)[0]
 
     def dispatcher_func(self, cur_process):
-        time_run_for = cur_process.run_for(self.time)
+        time_run_for = cur_process.run_for(10000, self.time)
         cur_process.process_state = ProcessStates.TERMINATED
         return Event(process_id=cur_process.process_id,
                     event_time=self.time + time_run_for,
