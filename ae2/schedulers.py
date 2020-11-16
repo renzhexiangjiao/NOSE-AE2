@@ -26,6 +26,7 @@ class SJF(SchedulerDES):
     """
     def scheduler_func(self, cur_event):
         #TODO
+        ############
         pass
 
     def dispatcher_func(self, cur_process):
