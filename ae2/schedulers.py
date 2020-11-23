@@ -8,10 +8,10 @@ class FCFS(SchedulerDES):
     Processes are scheduled in order of their arrival.
     """
     def scheduler_func(self, cur_event):
-        return sorted(filter(lambda p : p.process_state==ProcessStates.READY, self.processes), key=lambda p : p.arrival_time)[0]
+        return self.processes[cur_event.process_id]
 
     def dispatcher_func(self, cur_process):
-        time_run_for = cur_process.run_for(10000, self.time)
+        time_run_for = cur_process.run_for(cur_process.service_time, self.time)
         cur_process.process_state = ProcessStates.TERMINATED
         return Event(process_id=cur_process.process_id,
                     event_time=self.time + time_run_for,
@@ -40,12 +40,14 @@ class RR(SchedulerDES):
     It interleaves the execution of processes which are not serviced yet.
     """
     def scheduler_func(self, cur_event):
-        #TODO
-        pass
+        return self.processes[cur_event.process_id]
 
     def dispatcher_func(self, cur_process):
-        #TODO
-        pass
+        time_run_for = cur_process.run_for(self.quantum, self.time)
+        cur_process.process_state = ProcessStates.READY if cur_process.remaining_time > 0 else ProcessStates.TERMINATED
+        return Event(process_id=cur_process.process_id,
+                    event_time=self.time + time_run_for,
+                    event_type=EventTypes.PROC_CPU_REQ if cur_process.remaining_time > 0 else EventTypes.PROC_CPU_DONE)
 
 
 class SRTF(SchedulerDES):
