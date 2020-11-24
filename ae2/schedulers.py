@@ -66,9 +66,17 @@ class SRTF(SchedulerDES):
     It prioritises processes which expect to be serviced sooner.
     """
     def scheduler_func(self, cur_event):
-        #TODO
-        pass
+        x=sorted(self.processes,key=lambda p:p.remaining_time)
+        for process in x:
+            if process.process_state==process.process_state.READY:
+                return process
+            else:
+                continue
 
     def dispatcher_func(self, cur_process):
-        #TODO
-        pass
+        time_run_for = self.next_event_time()-self.time
+        time_run_for=cur_process.run_for(time_run_for,self.time)
+        cur_process.process_state = ProcessStates.READY if cur_process.remaining_time > 0 else ProcessStates.TERMINATED
+        return Event(process_id=cur_process.process_id,
+                    event_time=self.time + time_run_for,
+                    event_type=EventTypes.PROC_CPU_REQ if cur_process.remaining_time > 0 else EventTypes.PROC_CPU_DONE)
