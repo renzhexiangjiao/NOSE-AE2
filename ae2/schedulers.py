@@ -25,12 +25,7 @@ class SJF(SchedulerDES):
     with the shortest one first.
     """
     def scheduler_func(self, cur_event):
-        x=sorted(self.processes,key=lambda p:p.service_time)
-        for process in x:
-            if process.process_state==process.process_state.READY:
-                return process
-            else:
-                continue
+        return sorted(filter(lambda p : p.process_state==ProcessStates.READY, self.processes), key=lambda p : p.service_time)[0]
 
     def dispatcher_func(self, cur_process):
         time_run_for = cur_process.run_for(cur_process.service_time, self.time)
@@ -38,8 +33,6 @@ class SJF(SchedulerDES):
         return Event(process_id=cur_process.process_id,
                     event_time=self.time + time_run_for,
                     event_type=EventTypes.PROC_CPU_DONE)
-        
-
 
 
 class RR(SchedulerDES):
@@ -66,15 +59,10 @@ class SRTF(SchedulerDES):
     It prioritises processes which expect to be serviced sooner.
     """
     def scheduler_func(self, cur_event):
-        x=sorted(self.processes,key=lambda p:p.remaining_time)
-        for process in x:
-            if process.process_state==process.process_state.READY:
-                return process
-            else:
-                continue
+        return sorted(filter(lambda p : p.process_state==ProcessStates.READY, self.processes), key=lambda p : p.remaining_time)[0]
 
     def dispatcher_func(self, cur_process):
-        time_run_for=cur_process.run_for(self.next_event_time()-self.time,self.time)
+        time_run_for=cur_process.run_for(self.next_event_time()-self.time, self.time)
         cur_process.process_state = ProcessStates.READY if cur_process.remaining_time > 0 else ProcessStates.TERMINATED
         return Event(process_id=cur_process.process_id,
                     event_time=self.time + time_run_for,
