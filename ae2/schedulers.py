@@ -74,8 +74,7 @@ class SRTF(SchedulerDES):
                 continue
 
     def dispatcher_func(self, cur_process):
-        time_run_for = self.next_event_time()-self.time
-        time_run_for=cur_process.run_for(time_run_for,self.time)
+        time_run_for=cur_process.run_for(self.next_event_time()-self.time,self.time)
         cur_process.process_state = ProcessStates.READY if cur_process.remaining_time > 0 else ProcessStates.TERMINATED
         return Event(process_id=cur_process.process_id,
                     event_time=self.time + time_run_for,
