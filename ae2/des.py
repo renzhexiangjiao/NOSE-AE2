@@ -1,6 +1,7 @@
 import logging
 import math
 import numbers
+import matplotlib.pyplot as plt
 from bisect import insort
 from collections import deque
 from functools import partial
@@ -150,6 +151,9 @@ class SchedulerDES(object):
         Parameters:
         - seed: Used to initialise the random number generator
         """
+
+        gantt_log = [list() for p in range(self.num_processes)]
+
         self._logger.info(self.full_name() + " starting up...")
 
         # Generate workload (use optional user-defined seed for reproducibility)
@@ -192,6 +196,11 @@ class SchedulerDES(object):
             # Advance the internal clock by the context switch time, if a
             # process different than the previously executing one was selected
             if process_to_run != self.process_on_cpu:
+
+                gantt_log[process_to_run.process_id].append(self.time)
+                if self.process_on_cpu:
+                    gantt_log[self.process_on_cpu.process_id].append(self.time)
+
                 self.process_on_cpu = process_to_run
                 self.time += self.context_switch_time
 
@@ -209,6 +218,20 @@ class SchedulerDES(object):
         self._logger.debug("Processes at time " + str(self.time) + ":")
         self.__log_processes()
         self._logger.info(self.simple_name() + " finished at time " + str(self.time))
+
+        gantt_log[self.process_on_cpu.process_id].append(self.time)
+
+        plt.title(self.full_name())
+        plt.ylabel("process #")
+        plt.xlabel("time [s]")
+        plt.yticks(range(self.num_processes))
+        plt.xlim(0,self.time)
+        plt.gca().invert_yaxis()
+        plt.barh([p.process_id for p in self.processes], [self.time-p.arrival_time for p in self.processes], left=[p.arrival_time for p in self.processes], color="#DEFFDE", align='center', height=1)
+        for n, process in enumerate(gantt_log):
+            for i in range(len(process)//2):
+                plt.barh([n], [process[2*i+1]-process[2*i]], left=[process[2*i]], color="#33FF33", align='center', height=1)
+        plt.show()
 
     def scheduler_func(self, cur_event):
         """Processes the current event and returns the process to be executed next.
