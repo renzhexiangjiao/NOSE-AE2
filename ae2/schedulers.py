@@ -32,7 +32,7 @@ class SJF(FCFS): # also a non-preemptive scheduling algorithm, so inherits from 
         # return a READY process with the shortest service time
         return sorted(filter(lambda p: p.process_state==ProcessStates.READY, self.processes), key=lambda p : p.service_time)[0]
 
-    # SJF's dispatcher is identical to FCFS's, no need to rewrite it 
+    # SJF's dispatcher is identical to FCFS's, no need to rewrite it  
 
 
 class RR(SchedulerDES):
