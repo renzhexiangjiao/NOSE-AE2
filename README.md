@@ -28,10 +28,13 @@ FCFS
 ![](316fcfs.png)
 RR
 ![](316rr.png)
+As we can see all processes have a a very short service time and when the service time is less than the RR quantum, FCFS and RR proceed identically.
+
 SJF
 ![](316sjf.png)
 SRTF
 ![](316srtf.png)
+Finnaly, we see that the SRTF scheduler will keep processing the process identically to SJF unless the next process's burst time is less than the current process time remaining and both schedulers still follow the shortest time first as we can see the longer processes 2 and 3 are performed last in both schedulers.
 
 
 Seed 317537355:
@@ -40,10 +43,17 @@ FCFS
 ![](317fcfs.png)
 RR
 ![](317rr.png)
+As we see for this seed most processes have a very long service time, and both schedulers act extremely different, the RR is choosing to take smaller chunks with less service time in comparison to the FCFS.
+
 SJF
 ![](317sjf.png)
 SRTF
 ![](317srtf.png)
+
+As we see SJF will execute process 8 right after it has finished executing process 0 as 8 has the next shortest job but where it varies from SRTF is when SRTF aknowledges another process with a shorter run time it will break up processes into chunks and will prioritise the shortest job.
+
+We can see with both these seeds, one illustrating the effect of shorter service times and one of longer service times the difference of these schedulers with different processes.
+
 
 
 When testing our schedulers with the test seeds we were pleased to see that the values we got for our average turnaround time and our average wait times were as expected.
