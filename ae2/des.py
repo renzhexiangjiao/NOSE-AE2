@@ -96,8 +96,9 @@ class SchedulerDES(object):
         for p in self.processes:
             sum_turnaround_time += p.turnaround_time()
             sum_waiting_time += p.waiting_time()
-        print("    Avg. turnaround time: " + str(sum_turnaround_time / len(self.processes)))
-        print("    Avg. waiting time: " + str(sum_waiting_time / len(self.processes)))
+        #print("    Avg. turnaround time: " + str(sum_turnaround_time / len(self.processes)))
+        #print("    Avg. waiting time: " + str(sum_waiting_time / len(self.processes)))
+        return sum_turnaround_time / len(self.processes), sum_waiting_time / len(self.processes)
 
     def full_name(self):
         """Returns a string containing the current scheduler's name and configuration values.
@@ -221,17 +222,18 @@ class SchedulerDES(object):
 
         gantt_log[self.process_on_cpu.process_id].append(self.time)
 
-        plt.title(self.full_name())
-        plt.ylabel("process #")
-        plt.xlabel("time [s]")
-        plt.yticks(range(self.num_processes))
-        plt.xlim(0,self.time)
-        plt.gca().invert_yaxis()
-        plt.barh([p.process_id for p in self.processes], [self.time-p.arrival_time for p in self.processes], left=[p.arrival_time for p in self.processes], color="#DEFFDE", align='center', height=1)
-        for n, process in enumerate(gantt_log):
-            for i in range(len(process)//2):
-                plt.barh([n], [process[2*i+1]-process[2*i]], left=[process[2*i]], color="#33FF33", align='center', height=1)
-        plt.show()
+        if False:
+            plt.title(self.full_name())
+            plt.ylabel("process #")
+            plt.xlabel("time [s]")
+            plt.yticks(range(self.num_processes))
+            plt.xlim(0,self.time)
+            plt.gca().invert_yaxis()
+            plt.barh([p.process_id for p in self.processes], [self.time-p.arrival_time for p in self.processes], left=[p.arrival_time for p in self.processes], color="#DEDEFF", align='center', height=1)
+            for n, process in enumerate(gantt_log):
+                for i in range(len(process)//2):
+                    plt.barh([n], [process[2*i+1]-process[2*i]], left=[process[2*i]], color="#3333FF", align='center', height=1)
+            plt.show()
 
     def scheduler_func(self, cur_event):
         """Processes the current event and returns the process to be executed next.
