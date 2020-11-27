@@ -47,11 +47,13 @@ data = {'FCFS':list(),
         'RR'  :list(),
         'SRTF':list()}
 
+# DO NOT CHANGE THESE
 stats_turnaround = {'FCFS':{'expected':9.562, 'deviation':3.943},
                     'SJF' :{'expected':6.413, 'deviation':2.721},
                     'RR'  :{'expected':9.557, 'deviation':3.934},
                     'SRTF':{'expected':5.549, 'deviation':2.211}}
 
+# DO NOT CHANGE THESE
 stats_waiting = {'FCFS':{'expected':7.551, 'deviation':3.388},
                  'SJF' :{'expected':4.402, 'deviation':2.199},
                  'RR'  :{'expected':7.555, 'deviation':3.388},
@@ -59,19 +61,10 @@ stats_waiting = {'FCFS':{'expected':7.551, 'deviation':3.388},
 
 interesing_seed_list = list()
 
+# tests 10000 seed values
 for i in range(10000):
-    #print("NOSE2 :: AE2 :: Scheduler Discrete Event Simulation")
-    #print("---------------------------------------------------")
 
     seed = int.from_bytes(random.bytes(4), byteorder='little')
-
-    # print input specification
-    #print("Using seed: " + str(seed))
-    #base_sim = SchedulerDES(num_processes=num_processes, arrivals_per_time_unit=arrivals_per_time_unit,
-    #                        avg_cpu_burst_time=avg_cpu_burst_time)
-    #base_sim.generate_and_init(seed)
-    #print("Processes to be executed:")
-    #base_sim.print_processes()
 
     # instantiate simulators
     simulators = [FCFS(num_processes=num_processes, arrivals_per_time_unit=arrivals_per_time_unit,
@@ -87,34 +80,54 @@ for i in range(10000):
 
     # run simulators
     for sim in simulators:
-        #print("-----")
-        #print(sim.full_name() + ":")
-        #logging.info("--- " + sim.full_name() + " ---")
         sim.run(seed)
         turnaround, waiting = sim.print_statistics()
         data[sim.simple_name()].append(waiting)
 
-        weirdness += abs(waiting-stats_waiting[sim.simple_name()]['expected'])/stats_waiting[sim.simple_name()]['deviation']
+
+# FOR TESTING, ONLY MODIFY THE BLOCK OF CODE BELOW
+# USE turnaround AND waiting FOR TURNAROUND AND WAITING TIMES
+# USE stats_turnaround[sim.simple_name()] AND stats_waiting[sim.simple_name()] FOR MEAN TURNAROUND AND WAITING TIME AND STANDARD DEVIATIONS
+###################################################################
+
+        # change weirdness regardless of the scheduler algorithm used
+        weirdness += 0
+
+        # change weirdness based on what scheduler algorithm was used
+        if sim.simple_name() == 'FCFS':
+            weirdness += 0
+        elif sim.simple_name() == 'SJF':
+            weirdness += 0
+        elif sim.simple_name() == 'RR':
+            weirdness += 0
+        elif sim.simple_name() == 'SRTF':
+            weirdness += 0
+
+##################################################################
 
     interesing_seed_list.append((seed, weirdness))
 
-    if i % 1000 == 0:
-        print(i / 1000, '%')
-    
-colors = iter(['red', 'blue', 'green', 'yellow'])
+    if i % 100 == 0:
+        print(i / 100, '%')
 
-for sim, values in data.items():
-    plt.hist(values, 300, density=True, alpha=0.5, color=next(colors), label=sim)
-    EX = sum(values)/len(values)
-    EXX = sum(map(lambda x:x*x, values))/len(values)
-    VARX = EXX - EX*EX
-    STDX = VARX**0.5
-    print(sim, "E(X):", EX, "E(X^2):", EXX, "Var(X):", VARX, "sigma(X):", STDX)
-plt.legend(loc='upper right')
-plt.title('Avg waiting time')
-plt.yticks([])
-plt.show()
+# change to true if you want to see the histogram
+if False:  
+    colors = iter(['red', 'blue', 'green', 'yellow'])
 
+    for sim, values in data.items():
+        plt.hist(values, 300, density=True, alpha=0.5, color=next(colors), label=sim)
+        EX = sum(values)/len(values)
+        EXX = sum(map(lambda x:x*x, values))/len(values)
+        VARX = EXX - EX*EX
+        STDX = VARX**0.5
+        print(sim, "E(X):", EX, "E(X^2):", EXX, "Var(X):", VARX, "sigma(X):", STDX)
+
+    plt.legend(loc='upper right')
+    plt.title('Avg waiting time')
+    plt.yticks([])
+    plt.show()
+
+# sorts seeds by weirdness and prints 10 most 'interesting'
 interesing_seed_list.sort(key=lambda x:-x[1])
 for seed in range(10):
     print(interesing_seed_list[seed])
