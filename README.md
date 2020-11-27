@@ -5,6 +5,7 @@ In order to find some interesting seeds, instead of just trying random ones, we 
 
 ![](avg_waiting_time.png)
 ![](avg_turnaround_time.png)
+
 Below is a table with expected values and standard deviations of the distributions presented above:
 
 |      | E(avg_waiting_time) | sigma(avg_waiting_time) | E(avg_turnaround_time) | sigma(avg_turnaround_time) |
