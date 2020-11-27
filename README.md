@@ -46,7 +46,7 @@ SJF
 SRTF
 ![](317srtf.png)
 
-As we see SJF will execute process 8 right after it has finished executing process 0 as 8 has the next shortest job but where it varies from SRTF is when SRTF aknowledges another process with a shorter run time it will break up processes into chunks and will prioritise the shortest job.
+As we see SJF will execute process 8 right after it has finished executing process 0 as 8 has the next shortest job but where it varies from SRTF is when SRTF aknowledges another process with a shorter run time it will break up processes into chunks and will prioritise the shortest job. The superiority of pre-emptive over non-pre-emptive schedulers is shown here as both FCFS and SJF are stuck executing process 0 meanwhile, the pre-emptive schedulers can just switch processes which saves them waiting time.
 
 We can see with both these seeds, one illustrating the effect of shorter service times and one of longer service times the difference of these schedulers with different processes.
 
