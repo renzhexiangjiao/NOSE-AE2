@@ -20,6 +20,7 @@ Another observation is that we can see that FCFS and RR wait times on average ar
 
 We also know that turnaround time = waiting time + service time so the trends described above and the statements on the performance of algorithms compared to the others will stay the same.
 
+For the two seeds given in the sample outputs in the specification we see that the seed 1523376833 has lower wait and turnaround times on average for all schedulers in comparison to the seed 3672961927.
 
 When testing our schedulers with the test seeds we were pleased to see that the values we got for our average turnaround time and our average wait times were as expected.
 Some brief feeeedback that I personally have is that this excercise actually helped me visualize the differences and also similarities between schedulers and also the differences between pre-emptive and non pre-emptive scheduling.
