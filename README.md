@@ -5,14 +5,16 @@ In order to find some interesting seeds, instead of just trying random ones, we 
 
 ![](avg_waiting_time.png)
 ![](avg_turnaround_time.png)
+Below is a table with expected values and standard deviations of the distributions presented above:
 
-> insert expected values and standard deviations table here
+|      | E(avg_waiting_time) | sigma(avg_waiting_time) | E(avg_turnaround_time) | sigma(avg_turnaround_time) |
+|------|---------------------|-------------------------|------------------------|----------------------------|
+| FCFS | 7.511s              | 3.388s                  | 9.562s                 | 3.943s                     |
+| SJF  | 4.402s              | 2.199s                  | 6.413s                 | 2.721s                     |
+| RR   | 7.555s              | 3.388s                  | 9.557s                 | 3.934s                     |
+| SRTF | 3.549s              | 1.653s                  | 5.549s                 | 2.211s                     |
 
 On average FCFS waiting time and RR waiting time are identical so it is weird when they differ alot. We can also see that the waiting time for for SRTF is less than the SJF waiting time. We also know that turnaround time = waiting time + service time so the trends described above and the statements on the performance of algorithms compared to the others will stay the same.
-
-Another observation is that we can see that FCFS and RR wait times on average are very similar however we found if all processes are long RR performs worse than FCFS for the seed 4243287395.
-
-For the two seeds given in the sample outputs in the specification we see that the seed 1523376833 has lower wait and turnaround times on average for all schedulers in comparison to the seed 3672961927.
 
 CASE STUDY 1: Seed 3162636434
 
@@ -23,7 +25,6 @@ As we can see all processes have a a very short service time and when the servic
 ![](316sjf.png)
 ![](316srtf.png)
 Finnaly, we see that the SRTF scheduler will keep processing the process identically to SJF unless the next process's burst time is less than the current process time remaining and both schedulers still follow the shortest time first as we can see the longer processes 2 and 3 are performed last in both schedulers.
-
 
 CASE STUDY 2: Seed 317537355
 
