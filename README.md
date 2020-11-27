@@ -18,5 +18,8 @@ We can also see that the waiting time for for SRTF is less than the SJF waiting 
 Another observation is that we can see that FCFS and RR wait times on average are very similar however we do see that RR on average has less of a wait time.
 ![](avg_turnaround_time.png)
 
+We also know that turnaround time = waiting time + service time so the trends described above and the statements on the performance of algorithms compared to the others will stay the same.
+
+
 When testing our schedulers with the test seeds we were pleased to see that the values we got for our average turnaround time and our average wait times were as expected.
 Some brief feeeedback that I personally have is that this excercise actually helped me visualize the differences and also similarities between schedulers and also the differences between pre-emptive and non pre-emptive scheduling.
