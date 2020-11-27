@@ -22,5 +22,29 @@ We also know that turnaround time = waiting time + service time so the trends de
 
 For the two seeds given in the sample outputs in the specification we see that the seed 1523376833 has lower wait and turnaround times on average for all schedulers in comparison to the seed 3672961927.
 
+Seed 3162636434:
+
+FCFS
+![](316fcfs.png)
+RR
+![](316rr.png)
+SJF
+![](316sjf.png)
+SRTF
+![](316srtf.png)
+
+
+Seed 317537355:
+
+FCFS
+![](317fcfs.png)
+RR
+![](317rr.png)
+SJF
+![](317sjf.png)
+SRTF
+![](317srtf.png)
+
+
 When testing our schedulers with the test seeds we were pleased to see that the values we got for our average turnaround time and our average wait times were as expected.
 Some brief feeeedback that I personally have is that this excercise actually helped me visualize the differences and also similarities between schedulers and also the differences between pre-emptive and non pre-emptive scheduling.
