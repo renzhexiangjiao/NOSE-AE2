@@ -227,10 +227,10 @@ class SchedulerDES(object):
         plt.yticks(range(self.num_processes))
         plt.xlim(0,self.time)
         plt.gca().invert_yaxis()
-        plt.barh([p.process_id for p in self.processes], [self.time-p.arrival_time for p in self.processes], left=[p.arrival_time for p in self.processes], color="#DEFFDE", align='center', height=1)
+        plt.barh([p.process_id for p in self.processes], [self.time-p.arrival_time for p in self.processes], left=[p.arrival_time for p in self.processes], color="#DEDEFF", align='center', height=1)
         for n, process in enumerate(gantt_log):
             for i in range(len(process)//2):
-                plt.barh([n], [process[2*i+1]-process[2*i]], left=[process[2*i]], color="#33FF33", align='center', height=1)
+                plt.barh([n], [process[2*i+1]-process[2*i]], left=[process[2*i]], color="#3333FF", align='center', height=1)
         plt.show()
 
     def scheduler_func(self, cur_event):
