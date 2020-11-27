@@ -15,7 +15,7 @@ feedback you may have on the assessed exercise.
 
 On average FCFS waiting time and RR waiting time are identical so it is weird when they differ alot.
 We can also see that the waiting time for for SRTF is less than the SJF waiting time.
-Another observation is that we can see that FCFS and RR wait times on average are very similar however we do see that RR on average has less of a wait time.
+Another observation is that we can see that FCFS and RR wait times on average are very similar however we found if all processes are long RR performs worse than FCFS.
 ![](avg_turnaround_time.png)
 
 We also know that turnaround time = waiting time + service time so the trends described above and the statements on the performance of algorithms compared to the others will stay the same.
